@@ -17,29 +17,29 @@
 - Realtek Lan
 
 ### OS  :
-- Mojave (10.14.6) : :tw-2705: Tested  
-- Catalina (10.15.4) : :tw-2705: Tested
+- Mojave (10.14.6) : :white_check_mark: Tested  
+- Catalina (10.15.4) : :white_check_mark: Tested
 
 ## What works
-:tw-2705: UEFI booting via Clover.
-:tw-2705:  Accelerated graphics for HD630 including OpenCL & Metal.
-:tw-2705:  Native USB3/USB2/USB-C.
-:tw-2705:  Native audio with AppleHDA, including headphones.
-:tw-2705:  Built-in camera.
-:tw-2705:  Native power management.
-:tw-2705:  Battery status.
-:tw-2705:  Built-in keyboard (with special function keys).
-:tw-2705:  Built-in trackpad (basic gestures).
-:tw-2705:  Backlight controls.
-:tw-2705:  Wired Ethernet Lan.
-:tw-2705:  Messages/FaceTime.
-:tw-2705:  AirPlay mirroring to AppleTV.
+:white_check_mark: UEFI booting via Clover.  
+:white_check_mark:  Accelerated graphics for HD630 including OpenCL & Metal.  
+:white_check_mark:  Native USB3/USB2/USB-C.  
+:white_check_mark:  Native audio with AppleHDA, including headphones.  
+:white_check_mark:  Built-in camera.  
+:white_check_mark:  Native power management.  
+:white_check_mark:  Battery status.  
+:white_check_mark:  Built-in keyboard (with special function keys).  
+:white_check_mark:  Built-in trackpad (basic gestures).  
+:white_check_mark:  Backlight controls.  
+:white_check_mark:  Wired Ethernet Lan.  
+:white_check_mark:  Messages/FaceTime.  
+:white_check_mark:  AirPlay mirroring to AppleTV.  
 
 ## What does not work
-:tw-274c: build-in WiFi 
-:tw-274c: Bluetooth
-:tw-274c: NVIDIA Graphic
-:tw-274c: HDMI/DP video/audio don't work because those ports are connected to the NVIDIA, which is disabled.
+:x: build-in WiFi.  
+:x: Bluetooth.  
+:x: NVIDIA Graphic.  
+:x: HDMI/DP video/audio don't work because those ports are connected to the NVIDIA, which is disabled.  
 
 ### Solution
 WiFi Networking & Bluetooth Hands-Off:
