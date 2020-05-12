@@ -53,11 +53,11 @@ Graphics:
 - **[Lilu](https://github.com/acidanthera/lilu/releases "Lilu")**
 - **[WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases "WhateverGreen")**
 - **[AppleALC](https://github.com/acidanthera/applealc/releases "AppleALC")**
-- **[VoodooPS2](https://github.com/acidanthera/VoodooPS2 "VoodooPS2")**
-- **[VoodooTSCSync](https://github.com/RehabMan/VoodooTSCSync")**
-- **[RealtekRTL8111](https://github.com/RehabMan/OS-X-Realtek-Network "RealtekRTL8111")** (for BCM94352Z)
+- **[VoodooPS2](https://github.com/acidanthera/VoodooPS2/releases "VoodooPS2")**
+- **[VoodooTSCSync](https://bitbucket.org/RehabMan/VoodooTSCSync/downloads/)**
+- **[RealtekRTL8111](https://bitbucket.org/RehabMan/os-x-realtek-network/downloads/ "RealtekRTL8111")** (for BCM94352Z)
 - **[AirportBrcmFixup](https://github.com/acidanthera/AirportBrcmFixup/releases "AirportBrcmFixup")** (for BCM94352Z)
-- **[RtWlanU1827 & RtWlanU](https://github.com/chris1111/Wireless-USB-Adapter-Clover "RtWlanU1827 & RtWlanU")** (for TL-WN725N)
+- **[RtWlanU1827 & RtWlanU](https://github.com/chris1111/Wireless-USB-Adapter-Clover/releases "RtWlanU1827 & RtWlanU")** (for TL-WN725N)
 
 ## Preparing & Initial Installation
 follow this instruction very well [[Guide] Booting the OS X installer on LAPTOPS with Clover](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/ "[Guide] Booting the OS X installer on LAPTOPS with Clover")
