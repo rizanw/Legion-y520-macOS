@@ -1,97 +1,114 @@
-# Legion-y520-macOS
+# Legion Y520 macOS (Clover EFI)
 
-> This repository is actually a buckup data for my macOS catalina on Lenovo Legion y520. But, anyone may use it for reference. Do it your own risks.
+> [!NOTE]
+> **Archived.** This is the EFI setup I used to run macOS Mojave and Catalina on my Lenovo Legion Y520 in 2020. It's no longer maintained and is shared for reference only. Use it at your own risk.
+> Clover has since been replaced by [OpenCore](https://dortania.github.io/OpenCore-Install-Guide/) as the standard hackintosh bootloader. If you're starting fresh, follow the Dortania guide instead.
 
-### ChangeLog
-2020/04/04
-- initial creation
+Clover configuration, ACPI hotpatch, and UEFI drivers to boot macOS on the Lenovo Legion Y520 with Intel HD 630 graphics, power management, audio, and USB working.
 
-##  Specification
-### Machine :
-- Intel Core i7-7700HQ Processor ( 2.81GHz 6MB )
-- 8.0GB DDR4 SODIMM 2400MHz
-- NVIDIA GeForce GTX1050Ti (Disabled)
-- Intel HD 630 1536MB
-- Qualcomm Atheros QCA6174A wifi
-- Audio Realtek (ALC3248)
-- Realtek Lan
+## Hardware
 
-### OS  :
-- Mojave (10.14.6) : :white_check_mark: Tested  
-- Catalina (10.15.4) : :white_check_mark: Tested
+| Component | Model | Status |
+|---|---|---|
+| CPU | Intel Core i7-7700HQ (Kaby Lake) | ✅ native power management |
+| iGPU | Intel HD Graphics 630 | ✅ accelerated, Metal and OpenCL |
+| dGPU | NVIDIA GeForce GTX 1050 Ti | ❌ disabled (no macOS driver) |
+| RAM | 8 GB DDR4-2400 | ✅ |
+| Audio | Realtek ALC3248 | ✅ via AppleALC, including headphones |
+| Ethernet | Realtek RTL8111 | ✅ |
+| Wi-Fi / Bluetooth | Qualcomm Atheros QCA6174A | ❌ not supported, see [Wi-Fi](#wi-fi-and-bluetooth) |
+| HDMI / DisplayPort | wired to the NVIDIA GPU | ❌ |
+
+SMBIOS: `MacBookPro14,3`
+
+## Tested on
+
+- macOS Mojave 10.14.6 ✅
+- macOS Catalina 10.15.4 ✅
+- Clover r5108
 
 ## What works
-:white_check_mark: UEFI booting via Clover.  
-:white_check_mark:  Accelerated graphics for HD630 including OpenCL & Metal.  
-:white_check_mark:  Native USB3/USB2/USB-C.  
-:white_check_mark:  Native audio with AppleHDA, including headphones.  
-:white_check_mark:  Built-in camera.  
-:white_check_mark:  Native power management.  
-:white_check_mark:  Battery status.  
-:white_check_mark:  Built-in keyboard (with special function keys).  
-:white_check_mark:  Built-in trackpad (basic gestures).  
-:white_check_mark:  Backlight controls.  
-:white_check_mark:  Wired Ethernet Lan.  
-:white_check_mark:  Messages/FaceTime.  
-:white_check_mark:  AirPlay mirroring to AppleTV.  
 
-## What does not work
-:x: build-in WiFi.  
-:x: Bluetooth.  
-:x: NVIDIA Graphic.  
-:x: HDMI/DP video/audio don't work because those ports are connected to the NVIDIA, which is disabled.  
+- UEFI boot via Clover
+- Accelerated graphics on HD 630, including Metal and OpenCL
+- USB 3, USB 2, and USB-C
+- Audio with AppleHDA, including headphones
+- Built-in camera
+- Native CPU power management and battery status
+- Keyboard with function keys, trackpad with basic gestures
+- Backlight controls
+- Wired Ethernet
+- iMessage, FaceTime, and AirPlay mirroring (requires your own serial numbers, see [Post-installation](#post-installation))
 
-### Solution
-WiFi Networking & Bluetooth Hands-Off:
-- Broadcom BCM94352Z (native wifi & Bluetooth)
-- TP-Link TL-WN725N (wifi dongle) with [wireless adapter clover](https://github.com/chris1111/Wireless-USB-Adapter-Clover.git "wireless adapter clover")
-Graphics:
-- Disable NVIDIA
+## What doesn't work
 
-## Necessary & Recomendation Kexts
-- **[VirtualSMC + Plugins](https://github.com/acidanthera/VirtualSMC/releases "VirtualSMC + Plugins")** (the most required kext for hackintosh)
-- **[Lilu](https://github.com/acidanthera/lilu/releases "Lilu")**
-- **[WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases "WhateverGreen")**
-- **[AppleALC](https://github.com/acidanthera/applealc/releases "AppleALC")**
-- **[VoodooPS2](https://github.com/acidanthera/VoodooPS2/releases "VoodooPS2")**
-- **[VoodooTSCSync](https://bitbucket.org/RehabMan/VoodooTSCSync/downloads/)**
-- **[RealtekRTL8111](https://bitbucket.org/RehabMan/os-x-realtek-network/downloads/ "RealtekRTL8111")** (for BCM94352Z)
-- **[AirportBrcmFixup](https://github.com/acidanthera/AirportBrcmFixup/releases "AirportBrcmFixup")** (for BCM94352Z)
-- **[RtWlanU1827 & RtWlanU](https://github.com/chris1111/Wireless-USB-Adapter-Clover/releases "RtWlanU1827 & RtWlanU")** (for TL-WN725N)
+- **Built-in Wi-Fi and Bluetooth**: the Qualcomm card has no macOS driver.
+- **NVIDIA GPU**: disabled; Pascal GPUs have no driver after High Sierra.
+- **HDMI and DisplayPort**: both are wired to the NVIDIA GPU.
 
-## Preparing & Initial Installation
-follow this instruction very well [[Guide] Booting the OS X installer on LAPTOPS with Clover](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/ "[Guide] Booting the OS X installer on LAPTOPS with Clover")
-with **Notes :**
-- Use newest **[clover](https://github.com/CloverHackyColor/CloverBootloader/releases "clover")**
-- Download official macOS ([Catalina](https://support.apple.com/en-us/HT201475 "Catalina") / [Mojave](https://support.apple.com/en-us/HT210190 "Mojave")) from App Store
-- Use the 'createinstallmedia' approach
-- Use the option 1 "MBR with a FAT32 partition for Clover and a separate HFS+J partition for the OS X installer." much better.
-- Use the config.plist from this repo
-- Replace the drivers with this repo drivers (used clover version r5108)
-- Put the hotpatch to ACPI/patched/
+### Wi-Fi and Bluetooth
 
-#### BIOS configuration :
-- Set BIOS to defaults.
-- UEFI boot is enabled.
-- Secure boot is disabled.
-- Fast boot is disabled.
-- SATA mode is set to AHCI.
-- Intel Virtualization Technology is enabled.
+- Replace the card with a **Broadcom BCM94352Z** for native Wi-Fi and Bluetooth (with AirportBrcmFixup), or
+- use a **TP-Link TL-WN725N** USB dongle with [Wireless-USB-Adapter-Clover](https://github.com/chris1111/Wireless-USB-Adapter-Clover).
+
+## Repository contents
+
+```
+config/config.plist     Clover configuration (serial numbers removed, generate your own)
+hotpatch/SSDT-Y520.aml  ACPI hotpatch, goes in EFI/CLOVER/ACPI/patched/
+drivers/UEFI/           Clover UEFI drivers (ApfsDriverLoader, AptioMemoryFix, HFSPlus, FSInject)
+tools/mount_efi.sh      mounts the EFI partition (based on CloverPackage's MountESP)
+```
+
+## Kexts
+
+Download the latest release of each and place them in `EFI/CLOVER/kexts/Other/`:
+
+| Kext | Purpose |
+|---|---|
+| [Lilu](https://github.com/acidanthera/Lilu/releases) | patching framework required by most kexts below |
+| [VirtualSMC](https://github.com/acidanthera/VirtualSMC/releases) + plugins | SMC emulation, battery, sensors |
+| [WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases) | Intel graphics |
+| [AppleALC](https://github.com/acidanthera/AppleALC/releases) | audio |
+| [VoodooPS2Controller](https://github.com/acidanthera/VoodooPS2/releases) | keyboard and trackpad |
+| [VoodooTSCSync](https://bitbucket.org/RehabMan/VoodooTSCSync/downloads/) | TSC synchronization |
+| [RealtekRTL8111](https://bitbucket.org/RehabMan/os-x-realtek-network/downloads/) | Ethernet |
+| [AirportBrcmFixup](https://github.com/acidanthera/AirportBrcmFixup/releases) | only with a BCM94352Z card |
+| [RtWlanU / RtWlanU1827](https://github.com/chris1111/Wireless-USB-Adapter-Clover/releases) | only with a TL-WN725N dongle |
+
+## BIOS settings
+
+- Load defaults
+- UEFI boot: enabled
+- Secure Boot: disabled
+- Fast Boot: disabled
+- SATA mode: AHCI
+- Intel Virtualization Technology: enabled
 
 ## Installation
-do as installing macOS in general.
 
-## Post Installation
-- use `mount_efi.sh` in tools to mount the efi
-- replace EFI folder in EFI Volumes from your USB EFI
-- Install the [wireless adapter clover](https://github.com/chris1111/Wireless-USB-Adapter-Clover.git "wireless adapter clover") (for TL-WN725N)
+1. Download macOS [Catalina](https://support.apple.com/en-us/HT201475) or [Mojave](https://support.apple.com/en-us/HT210190) from the App Store and create a USB installer with `createinstallmedia`.
+2. Install [Clover](https://github.com/CloverHackyColor/CloverBootloader/releases) to the USB drive, following [Booting the OS X installer on laptops with Clover](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/). The MBR layout (FAT32 partition for Clover plus an HFS+J partition for the installer) worked best.
+3. Copy `config.plist` from this repo, replace the drivers with the ones in `drivers/UEFI/`, add the kexts, and put `SSDT-Y520.aml` in `ACPI/patched/`.
+4. Boot from USB and install macOS as usual.
 
-#### References : 
-- [[Guide] Booting the OS X installer on LAPTOPS with Clover](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/ "[Guide] Booting the OS X installer on LAPTOPS with Clover")
-- [Hackintosh Vanilla Desktop Guide](https://hackintosh.gitbook.io/-r-hackintosh-vanilla-desktop-guide/ "Hackintosh Vanilla Desktop Guide")
-- [[Guide] Lenovo Legion Y520/Y720 using Clover UEFI](https://www.tonymacx86.com/threads/guide-lenovo-legion-y520-y720-using-clover-uefi.261009/ "[Guide] Lenovo Legion Y520/Y720 using Clover UEFI")
-- [Some Clover config.plist files for common Intel graphics configurations](https://github.com/RehabMan/OS-X-Clover-Laptop-Config "Some Clover config.plist files for common Intel graphics configurations")
-- [[Guide] How to Boot macOS Installer on Laptops using Clover (UEFI/Legacy)](https://www.elitemacx86.com/threads/guide-how-to-boot-macos-installer-on-laptops-using-clover-uefi-legacy.177/ "[Guide] How to Boot macOS Installer on Laptops using Clover (UEFI/Legacy)")
+## Post-installation
 
+1. Mount the EFI partition of your system disk with `tools/mount_efi.sh` and copy the EFI folder from the USB drive into it.
+2. **Generate your own SMBIOS** serial number, board serial (MLB), and SmUUID for `MacBookPro14,3` with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), and replace the `GENERATE_YOUR_OWN_*` placeholders in `config.plist`. Never reuse serials from someone else's config: it breaks iMessage and FaceTime and can get the serial blocked by Apple.
+3. If you use the TL-WN725N dongle, install [Wireless-USB-Adapter-Clover](https://github.com/chris1111/Wireless-USB-Adapter-Clover).
 
+## References
 
+- [[Guide] Lenovo Legion Y520/Y720 using Clover UEFI](https://www.tonymacx86.com/threads/guide-lenovo-legion-y520-y720-using-clover-uefi.261009/)
+- [RehabMan's OS-X-Clover-Laptop-Config](https://github.com/RehabMan/OS-X-Clover-Laptop-Config)
+- [Hackintosh Vanilla Desktop Guide](https://hackintosh.gitbook.io/-r-hackintosh-vanilla-desktop-guide/)
+- [[Guide] How to boot the macOS installer on laptops using Clover](https://www.elitemacx86.com/threads/guide-how-to-boot-macos-installer-on-laptops-using-clover-uefi-legacy.177/)
+
+## Credits
+
+Thanks to [Adrian Jagielak](https://github.com/adrianjagielak) for fixing the kext links, and to the acidanthera, RehabMan, and Clover teams whose work this setup builds on.
+
+## License
+
+The configuration, hotpatch, and documentation are [MIT](LICENSE) licensed. The UEFI drivers and `mount_efi.sh` come from the Clover project and keep their original licenses.

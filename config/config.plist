@@ -246,7 +246,7 @@
 		<key>BoardManufacturer</key>
 		<string>Apple Inc.</string>
 		<key>BoardSerialNumber</key>
-		<string>C02814310GUJ1JHCB</string>
+		<string>GENERATE_YOUR_OWN_BOARD_SERIAL</string>
 		<key>BoardType</key>
 		<integer>10</integer>
 		<key>BoardVersion</key>
@@ -276,9 +276,9 @@
 		<key>ProductName</key>
 		<string>MacBookPro14,3</string>
 		<key>SerialNumber</key>
-		<string>C02WJAYWHTD5</string>
+		<string>GENERATE_YOUR_OWN_SERIAL</string>
 		<key>SmUUID</key>
-		<string>1E243B6D-5EB5-4670-9CC2-6446EBC87ABF</string>
+		<string>GENERATE_YOUR_OWN_UUID</string>
 		<key>Version</key>
 		<string>1.0</string>
 	</dict>
